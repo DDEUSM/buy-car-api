@@ -1,4 +1,4 @@
-export interface Cars
+export interface ICar
 {    
     code: string;
     model: string;
