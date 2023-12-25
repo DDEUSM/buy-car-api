@@ -5,6 +5,7 @@ import routes from "./routes/config-router";
 const server = express();
 dotenv.config();
 
+server.use(express.json());
 server.use(routes);
 
 server.listen(process.env.PORT, () => console.log(`Link http://localhost:${process.env.PORT}/`));
