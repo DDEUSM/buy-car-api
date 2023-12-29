@@ -1,11 +1,21 @@
-import express, {Response, Request} from "express";
+import { ExpressAdapter } from "./infra/server-adapter/ExpressAdapter";
+import { CarRepository, PermissionsRepository, SalesRepository, UsersRepository } from "./infra/repositories/implementations/postgreSQLRepositories";
+import { SetupRoutes } from "./infra/router/config/SetupRoutes";
 import dotenv from "dotenv";
-import routes from "./routes/config-router";
 
-const server = express();
+const expressServer = new ExpressAdapter();
 dotenv.config();
 
-server.use(express.json());
-server.use(routes);
+const repositories = {
+    carsRepository: new CarRepository(),
+    usersRepository: new UsersRepository(),
+    permissionsRepository: new PermissionsRepository(),
+    salesRepisotory: new SalesRepository()
+};
 
-server.listen(process.env.PORT, () => console.log(`Link http://localhost:${process.env.PORT}/`));
+const router = new SetupRoutes(expressServer, repositories);
+router.execute();
+
+expressServer.listen(Number(process.env.PORT));
+
+

@@ -13,7 +13,7 @@ export const cars =  [
     {
         id: "34fdgfgfg34343",
         model: "supra",
-        brandID: "fgfgf45454545gf",
+        brandID: "fgfgf4584htg",
         version: "sport",
         category: "sport",
         modelYear: 2023,
@@ -22,7 +22,7 @@ export const cars =  [
         unitsAvailable: 5
     },
     {
-        id: "547vbflbh6834",
+        id: "hg55bbrekla",
         model: "gtr",
         brandID: "fgfgf45454545gf",
         version: "skyline",
@@ -31,5 +31,17 @@ export const cars =  [
         color: "grey",
         price: 80000,
         unitsAvailable: 2
+    },
+    {
+        id: "547vbflbh6834",
+        model: "civic",
+        brandID: "49ugnfgrgggg",
+        version: "type-r",
+        category: "sport",
+        modelYear: 2023,
+        color: "black",
+        price: 90000,
+        unitsAvailable: 7
     }
+
 ]

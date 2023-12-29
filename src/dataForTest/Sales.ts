@@ -1,5 +1,2 @@
-import { TSales } from "../entities/sales";
-
-const Sales: TSales[] = [];
-
+const Sales: any = [];
 export { Sales };
