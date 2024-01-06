@@ -18,9 +18,7 @@ export class CreateUserUseCase
             userInput.password,
             userInput.driverGroupId, 
             userInput.credits
-        );        
-        
-        
+        );                        
 
         const newUserDto = new UserDto(
             newUser.id,
@@ -30,10 +28,7 @@ export class CreateUserUseCase
             newUser.passwordHash,
             newUser.driverGroupID,
             newUser.credits
-        );
-
-        console.log("user dto");
-        console.log(newUserDto);
+        );        
 
         return await this.usersRepository.createUser(newUserDto);
     }

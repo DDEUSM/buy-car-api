@@ -28,15 +28,22 @@ export default class UserRoutes
                 body.driverGroupId,
                 body.credits
             );
-
             const createUserUseCase = new CreateUserUseCase(this.usersRepository);
             await createUserUseCase.execute(newUserDto);
+            return {
+                statusCode: 201,
+                body: {}
+            };
         })
 
         this.server.on("get", "/user/:id", async (params: any, body: any) => 
         {
             const getUserByIDUseCase = new GetUserByIDUseCase(this.usersRepository);
-            return await getUserByIDUseCase.execute(params.id);
+            const user = await getUserByIDUseCase.execute(params.id);
+            return {
+                statusCode: 200,
+                body: user
+            };
         })
     }
 }

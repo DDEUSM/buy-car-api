@@ -3,13 +3,11 @@ import { TSales } from "../../../domain/entities/sales";
 import { ICarsRepository } from "../../../infra/repository-contracts/ICarsRepository";
 import { ISalesRepository } from "../../../infra/repository-contracts/ISalesRepository";
 import { IPermissionsRepository } from "../../../infra/repository-contracts/IPermissionsRepository";
-import { AuthorizationError } from "../../../domain/errors/AuthorizationError";
 import { IUsersRepository } from "../../../infra/repository-contracts/IUsersRepository";
 
 export class BuyCarUseCase
 {
-    constructor(
-
+    constructor (
         private carsRepository: ICarsRepository,
         private salesRepository: ISalesRepository,
         private permissionsRepository: IPermissionsRepository,
@@ -18,27 +16,11 @@ export class BuyCarUseCase
 
     async execute(carID: string, userID: string): Promise<void>
     {
-
         const car = await this.carsRepository.findCarByCode(carID);
 
-        if(!car)
-        {
-            throw new Error("This car its unavailable!");
-        }
-
-        const user = await this.usersRepository.findUserByID(userID);
-
-        if(!user)
-        {
-            throw new Error("This user not exists!");
-        }
+        const user = await this.usersRepository.findUserByID(userID);        
 
         const userIsPermited = await this.permissionsRepository.checkClientPermission(userID, carID);
-
-        if(!userIsPermited)
-        {
-            throw new AuthorizationError("User Group has not authorized", 400);
-        }
 
         await this.carsRepository.buyCar(carID);        
 

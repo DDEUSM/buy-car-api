@@ -1,7 +1,4 @@
-import { TcarProps } from "./types"
-
-export class Car 
-{   
+export type TcarProps = {
     id: string
     model: string
     brandID: string
@@ -10,11 +7,4 @@ export class Car
     modelYear: number
     color: string
     price: number   
-
-    constructor ( props: TcarProps )
-    {
-        Object.assign(this, props);
-    }
-    
-}
-
+};

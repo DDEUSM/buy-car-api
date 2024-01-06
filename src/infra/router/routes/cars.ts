@@ -27,16 +27,24 @@ export default class CarsRoutes
 
     setRoutes()
     {
-        this.server.on("get", "/cars/:carModel", async (params: any, body: any) => 
+        this.server.on("post", "/cars", async (params: any, body: any) => 
         {
-            const viewCarsUseCase = new ViewCarsUseCase(this.carsRepository);
-            return await viewCarsUseCase.execute(params.carModel);
+            const viewCarsUseCase = new ViewCarsUseCase(this.carsRepository);            
+            const cars =  await viewCarsUseCase.execute(body);
+            return { 
+                statusCode: 200,
+                body: cars
+            };                         
         }); 
         
         this.server.on("get","/car/:carID", async (params: any, body: any) => 
         {
             const viewCarByIDUseCase = new ViewCarByIDUseCase(this.carsRepository);
-            return await viewCarByIDUseCase.execute(params.carID);
+            const car =  await viewCarByIDUseCase.execute(params.carID);
+            return {
+                statusCode: 200,
+                body: car
+            };
         }); 
 
         this.server.on("post","/buy-car", async (params: any, body: any) => 
@@ -48,12 +56,20 @@ export default class CarsRoutes
                 this.usersRepository
             );
             await buyCarUseCase.execute(body.carID, body.userID);
+            return {
+                statusCode: 200,
+                body: {}
+            };
         });
 
         this.server.on("get","/garage-cars/:userID", async (params: any, body: any) => 
         {
             const viewGarageCarsUseCase = new ViewGarageCarsUseCase(this.carsRepository);
-            await viewGarageCarsUseCase.execute(params.carID);
+            const cars = await viewGarageCarsUseCase.execute(params.carID);
+            return {
+                statusCode: 200,
+                body: cars
+            };
         });
     }
     
