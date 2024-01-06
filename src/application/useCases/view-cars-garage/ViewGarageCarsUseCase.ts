@@ -1,5 +1,5 @@
 import { TCar } from "../../../domain/entities/cars";
-import { ICarsRepository } from "../../../domain/repository-contracts/ICarsRepository";
+import { ICarsRepository } from "../../../infra/repository-contracts/ICarsRepository";
 
 export class ViewGarageCarsUseCase
 {

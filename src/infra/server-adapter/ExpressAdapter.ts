@@ -1,4 +1,4 @@
-import express, {Express, Request, Response} from "express";
+import express, {Express, NextFunction, Request, Response, request} from "express";
 import { IHttpServer } from "../../domain/server-contracts/IHttpServer";
 
 export class ExpressAdapter implements IHttpServer
@@ -13,15 +13,23 @@ w
 
     on(httpMethod: string, url: string, callback: Function): void 
     {
-        this.server[httpMethod](url, async (req: Request, res: Response) => 
+        this.server[httpMethod](url, async (req: Request, res: Response, next: NextFunction) => 
         {
-            const output = await callback(req.params, req.body);
-            if(!output)
+            try 
             {
-                return res.json({});
-            }
-            return res.json(output);
+                const output = await callback(req.params, req.body);    
+                return res.status(output.statusCode).json(output.body);
+            } 
+            catch (error) 
+            {
+                next(error);
+            }                       
         });
+    }
+
+    middleware(middlewareFunction: Function)
+    {
+        this.server.use(middlewareFunction);
     }
 
     listen(port: number , callback?: () => void): void 
