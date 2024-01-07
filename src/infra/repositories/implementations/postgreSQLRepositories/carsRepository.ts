@@ -24,6 +24,21 @@ export class CarRepository implements ICarsRepository
             car.price
         ];
 
+        const carExists = await this.findCarByCode(car.id as string)
+        .catch(error => {});
+        
+        if(carExists)
+        {
+            throw new ApiError(401, "Car exists");
+        }
+
+        const brandExists = await this.connection.one("SELECT * FROM nations WHERE id = $1", [car.brandId]);
+
+        if(!brandExists)
+        {
+            throw new ApiError(404, "Nation not exists");
+        }        
+
         await this.connection.one("INSERT INTO cars (id, model, brandId, version, categoryId, modelYear, color, price) values ($1, $2, $3, $4, $5, $6, $7, $8)", values);
     }
 
@@ -57,7 +72,7 @@ export class CarRepository implements ICarsRepository
                 return query += "AND "+key+"=$"+realIndex+";";
             }
         }, "");                
-        
+
         const cars = await this.connection.query(mountQuery, 
         values);        
                 
