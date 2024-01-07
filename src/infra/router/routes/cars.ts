@@ -13,8 +13,8 @@ export default class CarsRoutes
     private carsRepository: ICarsRepository;
     private usersRepository: IUsersRepository;
     private salesRepository: ISalesRepository;
-    private permissionsRepository: IPermissionsRepository
-    ;
+    private permissionsRepository: IPermissionsRepository;
+
     constructor (
         private server: IHttpServer,
         repositories: any,
@@ -40,7 +40,7 @@ export default class CarsRoutes
         this.server.on("get","/car/:carID", async (params: any, body: any) => 
         {
             const viewCarByIDUseCase = new ViewCarByIDUseCase(this.carsRepository);
-            const car =  await viewCarByIDUseCase.execute(params.carID);
+            const car = await viewCarByIDUseCase.execute(params.carID);
             return {
                 statusCode: 200,
                 body: car

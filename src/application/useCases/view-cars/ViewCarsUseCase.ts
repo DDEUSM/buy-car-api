@@ -1,13 +1,12 @@
-import { TCar } from "../../../domain/entities/cars";
+import { Car } from "../../../domain/entities/cars";
 import { TSales } from "../../../domain/entities/sales";
 import { ICarsRepository } from "../../../infra/repository-contracts/ICarsRepository";
 import { TCarAttributes } from "./types";
 
 export class ViewCarsUseCase 
 {
-    constructor(
-
-       private carsRepositories: ICarsRepository,       
+    constructor (
+       private carsRepositories: ICarsRepository       
     ){} 
     
     clearInputs(carAttributes: TCarAttributes): any 
@@ -24,7 +23,7 @@ export class ViewCarsUseCase
         return cleanedInputs;
     }
 
-    async execute(carAttributes: any): Promise<TCar[]>
+    async execute(carAttributes: any): Promise<Car[]>
     {
         const cleanInputs = this.clearInputs(carAttributes);
 
@@ -33,6 +32,8 @@ export class ViewCarsUseCase
         {
             throw new Error("This cars not exists!");
         }
+        console.log("//cars///")
+        console.log(cars);
         return cars;
     }
 

@@ -4,9 +4,9 @@ export class Car
 {   
     id: string
     model: string
-    brandID: string
+    brandId: string
     version: string
-    category: string
+    categoryId: string
     modelYear: number
     color: string
     price: number   

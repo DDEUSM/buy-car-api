@@ -1,15 +1,41 @@
 import axios from "axios";
-import { test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
 
-
-const uri = "http://localhost:2345";
-
-test("Should return a car", () => 
+describe("Integration Tests", () => 
 {
-    const testCar = {
+    const uri = "http://localhost:2345";
 
-    };
-    const car = axios.get(`${uri}/cars/${testCar.id}`);
-    expect(car.id).toBe(testCar.id);
-});
+    test("Should return a car", async () => 
+    {
+        const testCar = {
+            id:  "54652fr344"
+        };
+        const response: any = await axios.post(`${uri}/cars`, testCar)
+        .catch(error => console.log(error.response));
+
+        const cars = response.data;    
+            
+        expect(cars[0].id).toBe(testCar.id);
+        expect(cars[0].model).toBe("supra");
+        
+    });
+
+    test("Test error status code of view cars feature, with 2 different cars", async () => 
+    {
+        let statusCode;
+        const testCar = {
+            id:  "this id not exist"
+        };
+        const response: any = await axios.post(`${uri}/cars`, testCar)
+        .catch(error => 
+        {
+            console.log(error.response);
+            statusCode = error.response.status;
+        });
+
+        expect(statusCode).toBe(404);
+        
+    });
+})
+
