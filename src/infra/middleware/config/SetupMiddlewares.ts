@@ -3,7 +3,7 @@ import { readdirSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
 
-export class SetupMiddleares 
+export class SetupMiddlewares 
 {
     constructor (
         private server: IHttpServer
@@ -16,7 +16,8 @@ export class SetupMiddleares
         {
             const configMiddleware = new (await import(`../middlewares/${fileName}`))
             .default(this.server);
-            configMiddleware.execute();
+            
+            configMiddleware.setMiddleware();
         });
     }
 }

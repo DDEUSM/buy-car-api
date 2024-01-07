@@ -1,11 +1,10 @@
 
-
 export class CarDto 
 {       
     model: string
-    brandID: string
+    brandId: string
     version: string
-    category: string
+    categoryId: string
     modelYear: number
     color: string
     price: number       
@@ -20,9 +19,9 @@ export class CarDto
 
 type TProps = {
     model: string
-    brandID: string
+    brandId: string
     version: string
-    category: string
+    categoryId: string
     modelYear: number
     color: string
     price: number       

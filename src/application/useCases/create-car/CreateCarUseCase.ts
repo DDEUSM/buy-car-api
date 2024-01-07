@@ -14,10 +14,10 @@ export class CreateCarUseCase
         const newCar = new Car ({
             id : idGenerator(),
             model: carAttributes.model,
-            category: carAttributes.category,
+            categoryId: carAttributes.categoryId,
             color: carAttributes.color,
             modelYear: carAttributes.modelYear,
-            brandID: carAttributes.brandID,
+            brandId: carAttributes.brandId,
             price: carAttributes.price,
             version: carAttributes.version
         }) satisfies CarDto;    

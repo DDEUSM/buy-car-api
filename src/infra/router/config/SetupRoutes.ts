@@ -6,7 +6,7 @@ import { IHttpServer } from "../../../domain/server-contracts/IHttpServer";
 
 export class SetupRoutes
 {
-    constructor(
+    constructor (
         private server: IHttpServer,
         private repositories: object
     ){}

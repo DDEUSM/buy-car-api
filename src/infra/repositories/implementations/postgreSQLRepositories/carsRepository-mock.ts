@@ -1,21 +1,22 @@
-import { TCar } from "../../../../domain/entities/cars";
+import { Car } from "../../../../domain/entities/cars";
 import { ICarsRepository } from "../../../repository-contracts/ICarsRepository";
-import { cars } from "../../../../dataForTest/Cars";
+import { Cars } from "../../../../dataForTest/Cars";
 import { TSales } from "../../../../domain/entities/sales";
 import { Sales } from "../../../../dataForTest/Sales";
 import { ApiError } from "../../../../domain/errors/ApiError";
 import { IConnection } from "../../../database-contracts/IConnection";
+import { CarDto } from "../../../../application/data-transfer-objects/CarDto";
 
 export class CarRepository implements ICarsRepository
 {
-    private cars: TCar[] = cars;
+    private cars: Car[] = Cars;
     private sales: TSales[] = Sales;
 
     constructor (
         connection: IConnection
     ){}
 
-    async findCarByCode(carCode: string): Promise<TCar> 
+    async findCarByCode(carCode: string): Promise<Car> 
     {
         const car = this.cars.find(car => car.id == carCode);        
         if(!car)
@@ -25,9 +26,9 @@ export class CarRepository implements ICarsRepository
         return car;
     }
 
-    async find(carAttributes: any): Promise<TCar[]>  
+    async find(carAttributes: any): Promise<Car[]>  
     {           
-        const carsFound: TCar[] = [];        
+        const carsFound: Car[] = [];        
         for(let car of this.cars)
         {
             let isEqual = true;            
@@ -57,12 +58,12 @@ export class CarRepository implements ICarsRepository
         {
             if(car.id == carID)
             {
-                car.unitsAvailable --;                
+                              
             }
         });
     }
 
-    async findUserCars(userID: string): Promise<TCar[]> 
+    async findUserCars(userID: string): Promise<Car[]> 
     {
         const salesWithUser = this.sales.filter(sale => sale.ownerID === userID); 
       
@@ -76,5 +77,10 @@ export class CarRepository implements ICarsRepository
         });                
         
         return this.cars.filter(car => ids.includes(car.id));
+    }
+
+    async saveCar(car: CarDto): Promise<void> 
+    {        
+        throw new Error();
     }
 }

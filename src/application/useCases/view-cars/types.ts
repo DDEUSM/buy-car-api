@@ -1,8 +1,8 @@
 export type TCarAttributes = {
     id: string,
-    brandID: string,
+    brandId: string,
     version: string,
-    categoryID: string,
+    categoryId: string,
     modelYear: number,
     color: string,
     price: number
